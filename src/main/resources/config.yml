@@ -1,4 +1,4 @@
 interval: 3m
 messages:
     - Test
-prefix:
+prefix: '&3[&6WMA.IM&3] &b'
