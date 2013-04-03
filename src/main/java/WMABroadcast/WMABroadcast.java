@@ -6,6 +6,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +72,7 @@ public class WMABroadcast extends JavaPlugin
         broadcastTasks.clear();
 
         for (World w : getServer().getWorlds()) {
+            if (!Files.exists(Paths.get(getDataFolder().getPath(), w.getName().toLowerCase() + ".txt"))) { continue; }
             BroadcastTask task = new BroadcastTask(this, w.getName());
             task.runTaskTimer(this, 0, getTime());
             broadcastTasks.add(task);
