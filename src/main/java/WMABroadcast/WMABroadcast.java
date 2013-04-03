@@ -1,9 +1,13 @@
 package WMABroadcast;
 
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hello world!
@@ -11,14 +15,19 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class WMABroadcast extends JavaPlugin
 {
-    private BroadcastTask broadcastTask;
+    private List<BroadcastTask> broadcastTasks;
+    private PerWorldListener worldListener;
+
 
     public void onEnable() {
 
         saveDefaultConfig();
 
-        broadcastTask = new BroadcastTask(this);
-        broadcastTask.runTaskTimer(this, 20, getTime());
+        broadcastTasks = new ArrayList<BroadcastTask>();
+
+        worldListener = new PerWorldListener(this);
+        getServer().getPluginManager().registerEvents(worldListener, this);
+        scheduleTasks();
     }
     public String getBroadcastPrefix() {
         return ChatColor.translateAlternateColorCodes('&', getConfig().getString("prefix", "&b[&aWMA&b] &6"));
@@ -41,12 +50,8 @@ public class WMABroadcast extends JavaPlugin
     public boolean onCommand(CommandSender sender, Command command, String label, String args[]) {
         if (command.getName().equalsIgnoreCase("reloadbroadcast")) {
             if (sender.hasPermission("wmabroadcast.reload")) {
-                broadcastTask.cancel();
-                broadcastTask = new BroadcastTask(this);
-
                 reloadConfig();
-
-                broadcastTask.runTaskTimer(this, 20, getTime());
+                scheduleTasks();
                 sender.sendMessage(ChatColor.DARK_AQUA + "Your broadcast messages have been reloaded.");
             } else {
                 sender.sendMessage(ChatColor.RED + "Sorry, but you have insufficient permissions.");
@@ -55,6 +60,20 @@ public class WMABroadcast extends JavaPlugin
 
 
         return true;
+    }
+
+    public void scheduleTasks() {
+        for (BroadcastTask task : broadcastTasks) {
+            task.cancel();
+        }
+
+        broadcastTasks.clear();
+
+        for (World w : getServer().getWorlds()) {
+            BroadcastTask task = new BroadcastTask(this, w.getName());
+            task.runTaskTimer(this, 0, getTime());
+            broadcastTasks.add(task);
+        }
     }
 
 }

@@ -1,4 +1,2 @@
-interval: 0.5
-messages:
-    - Test
-prefix:
+interval: 30s
+prefix: '&3[&6WMA.IM&3] &b'
