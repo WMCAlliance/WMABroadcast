@@ -1,2 +1,4 @@
-interval: 30s
+interval: 3m
+messages:
+    - Test
 prefix: '&3[&6WMA.IM&3] &b'
