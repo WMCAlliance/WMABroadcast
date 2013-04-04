@@ -25,7 +25,7 @@ public class PerWorldListener implements Listener
     @EventHandler
     public void onWMABroadcast(WorldBroadcastEvent event) {
         for (Player p : plugin.getServer().getOnlinePlayers()) {
-            if (p.isOp()) {
+            if (plugin.isDebug(p)) {
                 p.sendMessage(ChatColor.GRAY + event.getWorldName() + ": " + event.getMessage() + " is " + (event.isCancelled() ? "" : "not") + "canceled.");
             }
         }

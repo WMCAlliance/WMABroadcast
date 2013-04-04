@@ -4,12 +4,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Hello world!
@@ -19,6 +23,7 @@ public class WMABroadcast extends JavaPlugin
 {
     private List<BroadcastTask> broadcastTasks;
     private PerWorldListener worldListener;
+    private Map<String, Boolean> debugMode = new HashMap<String, Boolean>();
 
 
     public void onEnable() {
@@ -58,6 +63,20 @@ public class WMABroadcast extends JavaPlugin
             } else {
                 sender.sendMessage(ChatColor.RED + "Sorry, but you have insufficient permissions.");
             }
+        } else if (command.getName().equalsIgnoreCase("broadcastdebug")) {
+            if (sender.hasPermission("wmabroadcast.debug")) {
+                if (sender instanceof Player) {
+                    if (debugMode.containsKey(sender.getName())) {
+                        debugMode.put(sender.getName(), debugMode.get(sender.getName()));
+                    } else {
+                        debugMode.put(sender.getName(), true);
+                    }
+                } else {
+                    sender.sendMessage(ChatColor.RED + "Sorry only players can use this command.");
+                }
+            } else {
+                sender.sendMessage(ChatColor.RED + "Sorry, but you have insufficient permissions.");
+            }
         }
 
 
@@ -77,6 +96,14 @@ public class WMABroadcast extends JavaPlugin
             task.runTaskTimer(this, 0, getTime());
             broadcastTasks.add(task);
         }
+    }
+
+    public boolean isDebug(Player player) {
+        if (!debugMode.containsKey(player.getName())) {
+            return false;
+        }
+
+        return debugMode.get(player.getName());
     }
 
 }

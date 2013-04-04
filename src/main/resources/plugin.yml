@@ -6,3 +6,5 @@ version: 0.0.1
 commands:
     reloadbroadcast:
         description: Used to reload the interval and messages for the server broadcasts.
+    broadcastdebug:
+        description: Toggles all world messages.
