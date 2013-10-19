@@ -27,9 +27,10 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+        <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>LATEST</version>
-        </dependency> 
+        </dependency>
   </dependencies>
 </project>
