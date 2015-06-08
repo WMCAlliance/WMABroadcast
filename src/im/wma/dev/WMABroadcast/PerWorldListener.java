@@ -1,11 +1,9 @@
-package WMABroadcast;
+package im.wma.dev.WMABroadcast;
 
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 /**
  * Created with IntelliJ IDEA.

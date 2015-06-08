@@ -33,4 +33,29 @@
             <version>LATEST</version>
         </dependency>
   </dependencies>
+    <build>
+      <sourceDirectory>src/</sourceDirectory>
+      <resources>
+         <resource>
+            <directory>${project.basedir}/res</directory>
+            <filtering>true</filtering>
+            <includes>
+               <include>plugin.yml</include>
+               <include>config.yml</include>
+               <include>global.yml</include>
+            </includes>
+         </resource>
+      </resources>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.0</version>
+            <configuration>
+               <source>1.7</source>
+               <target>1.7</target>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build> 
 </project>

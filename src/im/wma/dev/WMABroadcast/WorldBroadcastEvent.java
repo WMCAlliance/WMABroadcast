@@ -1,4 +1,4 @@
-package WMABroadcast;
+package im.wma.dev.WMABroadcast;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
