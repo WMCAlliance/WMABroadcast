@@ -1,0 +1,12 @@
+## YAML Template.
+---
+name: WMABroadcast
+main: im.wma.dev.WMABroadcast.WMABroadcast
+version: 0.0.2
+website: http://wma.im
+author: modwizcode
+commands:
+    reloadbroadcast:
+        description: Used to reload the interval and messages for the server broadcasts.
+    broadcastdebug:
+        description: Toggles all world messages.
